@@ -5,8 +5,7 @@ using namespace std;
 
 
 int BusquedaBinaria(int X, std::vector<int> V, int ini, int fin){
-	size_t tamanyo = V.size();
-	if(ini > tamanyo){ 
+	if(ini > fin){ 
 		cout << "No se encuentra en el array" << endl;
 		return -1;
 	}
@@ -21,12 +20,30 @@ int BusquedaBinaria(int X, std::vector<int> V, int ini, int fin){
 	}
 }
 
+int BusquedaBinaria_INV(int x, std::vector<int> V, int ini, int fin) {
+	if(ini > fin){
+                cout << "No se encuentra en el array" << endl;
+                return -1;
+	}
+
+        int medio = (fin + ini) / 2; 
+
+        if (V[medio] == x) {
+            return medio;
+        } else if (V[medio] < x) {
+            return BusquedaBinaria_INV(x, V, ini, medio-1);  
+        } else {
+            return BusquedaBinaria_INV(x, V, medio+1, fin);
+	}
+
+    	return -1;  
+}
 
 	
 int Partition(std::vector<int>& V, int ini, int fin){
          int x = V[fin];
          int i = ini;
-         for (int j = ini; j < fin; j++){
+         for (int j = ini; j <= fin-1; j++){
                if (V[j] <= x){
                      //Intercambiar V[i] V[j];
 		     std::swap(V[i], V[j]);
